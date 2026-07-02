@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produtos</title>
+    <link rel="stylesheet" href="/css/global2.css">
+    <link rel="stylesheet" href="/css/add-prod.css">
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+    <main>
+        <h1>Adicionar Produtos</h1>
+        <div id="form-produto">
+            <img src="/imagens/placeholder.jpg" alt="imagem do produto" id="img-produto">
+            <div id="inputs-produto">
+                <input type="text" name="nome" id="inNome" placeholder="Produto X">
+                <textarea name="descricao" id="inDescricao" cols="30" rows="5"
+                    placeholder="Descrição do produto"></textarea>
+                <input type="number" name="quantidade" id="inQuantidade" placeholder="Quantidade">
+                <input type="number" name="preco" id="inPreco" placeholder="R$ 0,00">
+                <input type="button" value="Adicionar Produto" id="btAddProduto">
+            </div>
+        </div>
+        <input type="button" value="Voltar" id="btVoltar" onclick="window.location = '/vendedor'">
+    </main>
+</body>
+
+</html>

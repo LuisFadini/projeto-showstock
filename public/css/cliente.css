@@ -1,0 +1,174 @@
+.area-vendedores{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.top-area-vendedores{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 80vw;
+    margin-bottom: 20px;
+    padding: 1%;
+    background-color: #ccc;
+    border-radius: 10px;
+}
+header ul{
+    list-style: none;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-decoration: none;
+}
+header ul input{
+    height: 15px;
+    width: 400px;
+    color: grey;
+}
+.logo{
+    background: url(/imagens/VISU.png) no-repeat center;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+}
+.carrinho{
+     background: url(/imagens/iconprovcarrinho.png) no-repeat center;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.loja{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 80vw;
+    display: flex;
+}
+.img-nome-loja{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin: 0 50px;
+    min-width: 150px;
+}
+.img-nome-loja img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.img-nome-loja h2{
+    color: #000;
+    font-size: 15px;
+    font-weight: 200;
+    text-align: center;
+}
+.img-nome-loja input{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--verde4);
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.produtos-loja{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 20px;
+    align-items: center;
+}
+.produto{
+    width: 150px;
+    max-width: 30%;
+    border: 1px solid var(--cinza2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-left: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.produto img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.produto h3{
+    font-size: 20px;
+    font-weight: 100;
+}
+.produto p{
+    font-size: 14px;
+    font-weight: 200;
+}
+
+#categorias-area{
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    margin: 20px;
+}
+#categorias-vendedores{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+.categoria{
+    margin: 10px;
+    text-align: center;
+}
+.imagemCat{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--cinza2);
+}
+@media(max-width: 540px){
+    .produtos-loja{
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+.img-nome-loja input{
+    padding: 10px;
+}
+
+.top-area-vendedores{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80vw;
+    margin-bottom: 20px;
+}
+.loja{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+}
+}

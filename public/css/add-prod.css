@@ -1,0 +1,57 @@
+#form-produto #inputs-produto {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+#form-produto {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#form-produto img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    float: left;
+}
+
+#form-produto input,
+#form-produto textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#form-produto input:focus,
+#form-produto textarea:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+#form-produto textarea::placeholder,
+#form-produto input::placeholder {
+    color: #999;
+}
+
+#btnVoltar {
+    margin-top: 20px;
+    width: 200px;
+}
+
+@media(max-width: 540px) {
+    #form-produto {
+        flex-direction: column;
+
+
+    }
+}

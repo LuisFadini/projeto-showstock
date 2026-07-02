@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= produto.nome %></title>
+
+    <link rel="stylesheet" href="/css/global2.css" />
+    <link rel="stylesheet" href="/css/pagina-produto.css" />
+  </head>
+
+  <body>
+    <header></header>
+
+    <main>
+      <section>
+        <div>
+          <img
+            id="imgProduto"
+            src="/imagens/<%= produto.imagem || 'img-nao-disponivel.png'  %>"
+            alt=""
+          />
+        </div>
+        <div id="produto-pagina">
+          <h2 id="nomeProduto"><%= produto.nome %></h2>
+          <p>Descrição:</p>
+          <p id="descProduto"><%= produto.descricao %></p>
+          <p>Marca:</p>
+          <p id="marcaProduto"><%= produto.marca %></p>
+          <span>
+            <p>Quantidade: <input type="number" min="0" max="100" id="" /></p>
+          </span>
+          <p id="precoProduto">R$<%= produto.preco.toFixed(2) %></p>
+          <div>
+            <input
+              type="button"
+              id="btAdicionarCarrinho"
+              value="Adicionar ao carrinho"
+            />
+            <input type="button" id="btComprar" value="Comprar" />
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

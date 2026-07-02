@@ -1,0 +1,39 @@
+#nomeProduto {
+    color: #000;
+}
+
+#imgProduto {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+section {
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#produto-pagina {
+    width: 50%;
+    padding: 3rem;
+    text-align: center;
+}
+
+#produto-pagina p {
+    margin: 10px;
+}
+
+input[type="number"] {
+    width: 80px;
+    height: 20px;
+}
+
+@media(max-width: 540px) {
+    section {
+        flex-direction: column;
+    }
+}

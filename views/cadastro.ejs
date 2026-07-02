@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/css/global1.css" />
+    <link rel="stylesheet" href="/css/cadastro.css" />
+  </head>
+
+  <body>
+    <main>
+      <div id="logo-titulo">
+        <div id="logocarrinho"></div>
+        <div id="logovisu"></div>
+      </div>
+      <section class="campos-inputs">
+        <h1 id="txtCadastro">Cadastro</h1>
+        <label for="inNome"></label>
+        <input type="text" id="inNome" name="nome" placeholder="Nome" />
+
+        <label for="inEmail"></label>
+        <input type="text" id="inEmail" name="email" placeholder="Email" />
+
+        <label for="inSenha"></label>
+        <input type="password" id="inSenha" name="senha" placeholder="Senha" />
+
+        <input type="button" id="btCadastrar" value="Cadastrar" />
+        <input
+          type="button"
+          value="Entrar sem login"
+          id="btEntrar"
+          class="btn-verde"
+        />
+        <p id="rodape">Já tem VISU? <span id="btMudar">Faça login!</span></p>
+      </section>
+    </main>
+    <script src="/js/mensagem_alerta.js"></script>
+    <script src="/js/comerciantes.js"></script>
+    <script src="/js/cadastro.js"></script>
+  </body>
+</html>

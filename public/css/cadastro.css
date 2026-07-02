@@ -1,0 +1,51 @@
+#logo-titulo {
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+#logocarrinho {
+    background: url(/imagens/logocarrinho.png) no-repeat center;
+    background-size: cover;
+    overflow: hidden;
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+}
+
+#logovisu {
+    background: url(/imagens/VISU.png) no-repeat center;
+    background-size: cover;
+    overflow: hidden;
+    width: 400px;
+    height: 200px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+@media (max-width: 540px) {
+    main {
+        flex-direction: column;
+    }
+
+    #logocarrinho {
+        width: 150px;
+        height: 150px;
+        margin: 20px;
+    }
+
+    #logovisu {
+        width: 150px;
+        height: 75px;
+        margin: 20px;
+    }
+
+}

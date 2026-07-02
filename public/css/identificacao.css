@@ -1,0 +1,55 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+}
+
+h1 {
+    color: white;
+    padding: 2rem;
+    align-self: center;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+p {
+    margin-top: 1rem;
+}
+
+#identificacao {
+    display: flex;
+    gap: 5vw;
+    margin-top: 2rem;
+
+}
+
+#identificacao div {
+    cursor: pointer;
+}
+
+#comerciante,
+#cliente {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: var(--verde2);
+    transition: 0.3s;
+}
+
+#comerciante:hover,
+#cliente:hover {
+    background-color: var(--verde4);
+    transition: background-color 0.3s;
+}
+
+.selecao {
+    text-align: center;
+}

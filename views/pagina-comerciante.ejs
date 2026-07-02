@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= comerciante.nome %></title>
+
+    <link rel="stylesheet" href="/css/global2.css" />
+    <link rel="stylesheet" href="/css/pagina-comerciante.css" />
+    <script>
+      const comerciante = <%- JSON.stringify(comerciante) %>;
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <ul class="ul-header">
+        <li class="logo"></li>
+        <li><input type="text" placeholder="Pão francês..." /></li>
+        <li class="carrinho"></li>
+      </ul>
+    </header>
+
+    <main>
+      <div id="container-info-vendedor">
+        <div id="card-vendedor">
+          <div id="card-info-vendedor">
+            <img src="/imagens/<%= comerciante.imagem %>" alt="Loja" />
+            <h2><%= comerciante.nome %></h2>
+          </div>
+        </div>
+        <div id="sobre-vendedor">
+          <div>
+            <h3>Sobre o Vendedor</h3>
+            <p><%= comerciante.sobre %></p>
+          </div>
+          <div>
+            <h3><span> Contato: </span></h3>
+            <p>+55 (27) 0002-8922</p>
+          </div>
+        </div>
+        <div id="contato"></div>
+      </div>
+      <div id="lista-produtos">
+        <div id="produtos-top">
+          <p>Classificar por</p>
+          <span>
+            <input type="button" value="Mais Vendidos" id="btPopular" />
+            <input type="button" value="Preço" id="btPreco" />
+          </span>
+        </div>
+        <div id="div-lista-produtos"></div>
+      </div>
+    </main>
+
+    <script src="/js/pagina-comerciante.js"></script>
+  </body>
+</html>

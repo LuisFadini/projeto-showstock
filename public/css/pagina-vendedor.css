@@ -1,0 +1,73 @@
+h1 {
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+div.card {
+    background-color: var(--verde1);
+    padding: 20px 40px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80vw;
+}
+
+div.card h3 {
+    margin: 0;
+    color: var(--verde4);
+    font-size: 30px;
+}
+
+div.card p {
+    color: #000;
+    font-size: 18px;
+}
+
+.menu-da-loja {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.produto-item {
+    background-color: var(--branco2);
+    border: 1px solid var(--cinza2);
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+}
+
+.produto-item h3 {
+    font-size: 30px;
+}
+
+.produto-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.produto-item p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+#menu-central {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+li {
+    text-decoration: none;
+}
+
+li:hover {
+    transform: scale(1.02);
+    transition: 0.2s;
+    color: rgb(248, 180, 77);
+}

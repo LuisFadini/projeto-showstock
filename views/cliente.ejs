@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Página do Cliente</title>
+
+  <link rel="stylesheet" href="/css/global2.css">
+  <link rel="stylesheet" href="/css/cliente.css">
+  <script>
+    const comerciantes = <%- JSON.stringify(comerciantes) %>;
+  </script>
+</head>
+
+<body>
+  <header>
+    <ul>
+      <li class="logo"></li>
+      <li><input type="text" placeholder="Pão frânces..."></li>
+      <li class="carrinho"></li>
+    </ul>
+  </header>
+  <main>
+    <div class="area-vendedores">
+      <div class="top-area-vendedores">
+        <h3>Vendedores</h3>
+        <div>
+          <input type="button" value="Relevância" id="btRelevancia">
+          <input type="button" value="Recente" id="btRecente">
+        </div>
+      </div>
+      <div id="area-lojas">
+      </div>
+      <div id="categorias-area">
+        <h1>Categorias</h1>
+        <hr>
+        <fieldset id="categorias-vendedores">
+          <%
+          const categorias = new Set();
+
+          comerciantes.forEach(comerciante => {
+          comerciante.categorias.forEach(categoria => {
+          categorias.add(categoria);
+          });
+          });
+
+          for (categoria of categorias) {
+          %>
+          <div class="categoria"><span><%= categoria %></span></div>
+          <% } %>
+        </fieldset>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/cliente.js"></script>
+</body>
+
+</html>
