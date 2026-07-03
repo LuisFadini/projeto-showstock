@@ -14,8 +14,8 @@
       <h1>Olá Vendedor, o que deseja?</h1>
       <section>
         <div class="card">
-          <h3>Vendedor X</h3>
-          <p>No visu desde X tempo</p>
+          <h3>Vendedor <%= comerciante.nome %></h3>
+          <p>No visu desde <%= new Date(comerciante.data).toLocaleDateString("pt-BR") %></p>
         </div>
         <div class="menu-da-loja">
           <div id="menu-lateral">
@@ -24,7 +24,7 @@
             <hr />
             <ul>
               <li>
-                <a href="/vendedor/add-produto">Adicionar Produtos</a>
+                <a href="/vendedor/<%= comerciante.nome %>/add-produto">Adicionar Produtos</a>
               </li>
               <li>
                 <a href="/vendedor/2-editar-produtos">Editar Produtos</a>

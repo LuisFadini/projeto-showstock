@@ -8,6 +8,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(process.cwd(), "views"));
+app.use(express.json())
 
 app.use(express.static(path.join(process.cwd(), "public")));
 

@@ -44,7 +44,7 @@ btCadastrar.addEventListener("click", () => {
       return;
     }
 
-    window.location = "vendedor";
+    window.location = `vendedor/${inNome.value}`;
   } else {
     if (!inNome.value || !inEmail.value || !inSenha.value) {
       mostrarErro("Por favor, preencha todos os campos antes de continuar.");
