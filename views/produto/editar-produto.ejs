@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar</title>
+    <link rel="stylesheet" href="/css/global2.css" />
+    <link rel="stylesheet" href="/css/editar-prod.css" />
+    <script>
+      const comerciante = <%- JSON.stringify(comerciante) %>;
+      const produto = <%- JSON.stringify(produto) %>;
+    </script>
+  </head>
+
+  <body>
+    <header></header>
+
+    <main>
+      <h1>Editar Produto</h1>
+      <div id="form-produto">
+        <img
+          src="/imagens/<%= produto.imagem %>"
+          alt="imagem do produto"
+          id="img-produto"
+        />
+        <div id="inputs-produto">
+          <input
+            type="text"
+            name="nome"
+            id="inNome"
+            placeholder="Produto X"
+            value="<%= produto.nome %>"
+          />
+          <textarea
+            name="descricao"
+            id="inDescricao"
+            cols="30"
+            rows="5"
+            placeholder="Descrição do produto"
+          >
+<%= produto.descricao %></textarea
+          >
+          <input
+            type="number"
+            name="quantidade"
+            id="inQuantidade"
+            placeholder="Quantidade"
+            value="<%= produto.quantidade %>"
+          />
+          <input
+            type="number"
+            name="preco"
+            id="inPreco"
+            placeholder="R$ 0,00"
+            value="<%= produto.preco %>"
+          />
+          <input type="button" value="Salvar" id="btSalvarProduto" />
+          <input type="button" value="Excluir" id="btExcluirProduto" />
+        </div>
+      </div>
+      <input
+        type="button"
+        value="Voltar"
+        id="btVoltar"
+        onclick="window.location = '/vendedor/<%= comerciante.nome %>'"
+      />
+    </main>
+    <!-- 
+    <script src="../../comerciantes.js"></script>
+    <script src="../elementos.js"></script>
+    -->
+
+    <script src="/js/mensagem_alerta.js"></script>
+    <script src="/js/editar-produto.js"></script>
+  </body>
+</html>
+

@@ -4,7 +4,7 @@ const inQuantidade = document.getElementById("inQuantidade");
 const inPreco = document.getElementById("inPreco");
 const btAddProduto = document.getElementById("btAddProduto");
 
-btAddProduto.addEventListener("click", async (e) => {
+btSalvarProduto.addEventListener("click", async (e) => {
   if (
     !inNome.value ||
     !inDescricao.value ||
@@ -15,7 +15,7 @@ btAddProduto.addEventListener("click", async (e) => {
     return;
   }
 
-  await fetch(`/vendedor/${comerciante.nome}/add-produto`, {
+  await fetch(`/vendedor/${comerciante.nome}/produtos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

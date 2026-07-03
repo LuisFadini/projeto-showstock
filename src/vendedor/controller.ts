@@ -31,7 +31,7 @@ export class VendedoresController {
       return res.status(404).send("Comerciante não encontrado");
     }
 
-    res.render("add-produto", { comerciante });
+    res.render("produto/add-produto", { comerciante });
   }
 
   addProduto(req: Request, res: Response) {
@@ -60,6 +60,101 @@ export class VendedoresController {
     comerciante.produtos.push(novoProduto);
 
     return res.status(201).json(novoProduto);
+  }
+
+  paginaListar(req: Request, res: Response) {
+    const nome = req.params.nome;
+    if (!nome || typeof nome !== "string")
+      return res.status(400).send("Precisa ser fornecido o nome do vendedor");
+
+    const comerciante = comerciantes.find(
+      (c) => c.nome.toLowerCase() === nome.toLowerCase(),
+    );
+
+    if (!comerciante) {
+      return res.status(404).send("Comerciante não encontrado");
+    }
+
+    res.render("produto/listar", {
+      comerciante,
+      produtos: comerciante.produtos,
+    });
+  }
+
+  paginaEditarProduto(req: Request, res: Response) {
+    const { nome, id } = req.params;
+
+    if (!nome || typeof nome !== "string")
+      return res.status(400).send("Precisa ser fornecido o nome do vendedor");
+
+    const comerciante = comerciantes.find(
+      (c) => c.nome.toLowerCase() === nome.toLowerCase(),
+    );
+
+    if (!comerciante) {
+      return res.status(404).send("Comerciante não encontrado");
+    }
+
+    const produto = comerciante.produtos.find((p) => p.id === Number(id));
+
+    if (!produto) {
+      return res.status(404).send("Produto não encontrado");
+    }
+
+    res.render("produto/editar-produto", {
+      comerciante,
+      produto,
+    });
+  }
+
+  editarProduto(req: Request, res: Response) {
+    const { nome, id } = req.params;
+
+    if (!nome || typeof nome !== "string")
+      return res.status(400).send("Precisa ser fornecido o nome do vendedor");
+
+    const comerciante = comerciantes.find(
+      (c) => c.nome.toLowerCase() === nome.toLowerCase(),
+    );
+
+    if (!comerciante) {
+      return res.status(404).send("Comerciante não encontrado");
+    }
+
+    const produto = comerciante.produtos.find((p) => p.id === Number(id));
+
+    if (!produto) {
+      return res.status(404).send("Produto não encontrado");
+    }
+
+    Object.assign(produto, req.body);
+
+    return res.json(produto);
+  }
+
+  deletarProduto(req: Request, res: Response) {
+    const { nome, id } = req.params;
+
+    if (!nome || typeof nome !== "string")
+      return res.status(400).send("Precisa ser fornecido o nome do vendedor");
+
+    const comerciante = comerciantes.find(
+      (c) => c.nome.toLowerCase() === nome.toLowerCase(),
+    );
+
+    if (!comerciante) {
+      return res.status(404).send("Comerciante não encontrado");
+    }
+
+    const index = comerciante.produtos.findIndex((p) => p.id === Number(id));
+
+    if (index === -1) {
+      return res.status(404).send("Produto não encontrado");
+    }
+
+    const [produtoRemovido] = comerciante.produtos.splice(index, 1);
+
+    return res.json(produtoRemovido);
   }
 }
 

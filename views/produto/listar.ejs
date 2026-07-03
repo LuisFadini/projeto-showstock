@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produtos</title>
+    <link rel="stylesheet" href="/css/global2.css">
+    <link rel="stylesheet" href="/css/pagina-vendedor.css">
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+    <main>
+        <h1>Editar Produtos</h1>
+        <div id="menu-central">
+            <% produtos.forEach((produto) => { %>
+            <div class="produto-item" id="<%= produto.id %>" data-id="<%= produto.id %>" onclick="window.location = '/vendedor/<%= comerciante.nome %>/produtos/<%= produto.id %>/editar'">
+                <h3><%= produto.nome %></h3>
+                <img src="/imagens/<%= produto.imagem %>" alt="<%= produto.nome %>" width="100"/>
+                <p>Preço: R$<%= produto.preco.toFixed(2) %></p>
+                <p>Quantidade em estoque: <%= produto.quantidade %></p>
+            </div>
+            <% }) %>
+        </div>
+    </main>
+</body>
+
+</html>
