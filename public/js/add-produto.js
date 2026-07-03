@@ -4,7 +4,7 @@ const inQuantidade = document.getElementById("inQuantidade");
 const inPreco = document.getElementById("inPreco");
 const btAddProduto = document.getElementById("btAddProduto");
 
-btSalvarProduto.addEventListener("click", async (e) => {
+btAddProduto.addEventListener("click", async (e) => {
   if (
     !inNome.value ||
     !inDescricao.value ||
@@ -29,4 +29,6 @@ btSalvarProduto.addEventListener("click", async (e) => {
       imagem: "placeholder.jpg",
     }),
   })
+
+  window.location = `/vendedor/${comerciante.nome}`
 });
