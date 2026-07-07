@@ -4,8 +4,19 @@ import { clientesRouter } from "./clientes/routes.js";
 import { comerciantesRouter } from "./comerciantes/routes.js";
 import { vendedoresRouter } from "./vendedor/routes.js";
 import { initDatabase } from "./database/connector.js";
+import { comerciantes } from "./comerciantes.js";
+import { ComercianteRepository } from "./database/repositories/comerciante-repository.js";
+import { ProdutoRepository } from "./database/repositories/produto-repository.js";
 
 const db = initDatabase();
+
+const produtoRepository = new ProdutoRepository(db);
+const comercianteRepository = new ComercianteRepository(db, produtoRepository);
+
+// Adiciona os valores iniciais no banco de dados
+for (const comerciante of comerciantes) {
+  comercianteRepository.criar(comerciante);
+}
 
 const app = express();
 

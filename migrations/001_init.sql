@@ -7,7 +7,8 @@ CREATE TABLE
     senha TEXT NOT NULL,
     imagem TEXT NOT NULL DEFAULT 'placeholder.jpg',
     relevancia INTEGER DEFAULT 0,
-    data TEXT
+    data TEXT,
+    categorias TEXT NOT NULL DEFAULT '[]'
   );
 
 CREATE TABLE
