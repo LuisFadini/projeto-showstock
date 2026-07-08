@@ -36,7 +36,7 @@ function troca() {
 
 const btEntrar = document.getElementById("btEntrar");
 
-btCadastrar.addEventListener("click", () => {
+btCadastrar.addEventListener("click", async () => {
   const user = localStorage.getItem("tipoUsuario");
   if (user === "comerciante") {
     if (!inNome.value || !inEmail.value || !inSenha.value) {
@@ -44,7 +44,24 @@ btCadastrar.addEventListener("click", () => {
       return;
     }
 
-    window.location = `vendedor/${inNome.value}`;
+    const response = await fetch("/vendedor/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: inEmail.value,
+      }),
+    });
+
+    if (!response.ok) {
+      mostrarErro("Email não encontrado.");
+      return;
+    }
+
+    const { id } = await response.json();
+
+    window.location = `vendedor/${id}`;
   } else {
     if (!inNome.value || !inEmail.value || !inSenha.value) {
       mostrarErro("Por favor, preencha todos os campos antes de continuar.");

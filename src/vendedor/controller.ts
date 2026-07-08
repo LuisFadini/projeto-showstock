@@ -1,19 +1,23 @@
 import type { Request, Response } from "express";
-import { comerciantes } from "../comerciantes.js";
 import type { NomeParams, ProdutoParams } from "./types.js";
+import type { ComercianteRepository } from "../database/repositories/comerciante-repository.js";
+import type { ProdutoRepository } from "../database/repositories/produto-repository.js";
 
 export class VendedoresController {
-  private getComerciante(req: Request<NomeParams>, res: Response) {
-    const { nome } = req.params;
+  constructor(
+    private readonly comercianteRepository: ComercianteRepository,
+    private readonly produtoRepository: ProdutoRepository,
+  ) {}
 
-    if (!nome) {
-      res.status(400).send("Precisa ser fornecido o nome do vendedor");
+  private getComerciante(req: Request<NomeParams>, res: Response) {
+    const vendedorId = Number(req.params.vendedor_id);
+
+    if (Number.isNaN(vendedorId)) {
+      res.status(400).send("ID do vendedor inválido");
       return null;
     }
 
-    const comerciante = comerciantes.find(
-      (c) => c.nome.toLowerCase() === nome.toLowerCase(),
-    );
+    const comerciante = this.comercianteRepository.buscarPorId(vendedorId);
 
     if (!comerciante) {
       res.status(404).send("Comerciante não encontrado");
@@ -27,14 +31,14 @@ export class VendedoresController {
     const comerciante = this.getComerciante(req, res);
     if (!comerciante) return null;
 
-    const id = Number(req.params.id);
+    const produtoId = Number(req.params.produto_id);
 
-    if (Number.isNaN(id)) {
-      res.status(400).send("ID inválido");
+    if (Number.isNaN(produtoId)) {
+      res.status(400).send("ID do produto inválido");
       return null;
     }
 
-    const produto = comerciante.produtos.find((p) => p.id === id);
+    const produto = this.produtoRepository.buscarPorId(produtoId);
 
     if (!produto) {
       res.status(404).send("Produto não encontrado");
@@ -44,40 +48,33 @@ export class VendedoresController {
     return { comerciante, produto };
   }
 
-  paginaVendedor(req: Request<NomeParams>, res: Response) {
+  paginaVendedor = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
     if (!comerciante) return;
 
     res.render("vendedor", { comerciante, produtos: comerciante.produtos });
-  }
+  };
 
-  paginaAddProduto(req: Request<NomeParams>, res: Response) {
+  paginaAddProduto = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
     if (!comerciante) return;
 
     res.render("produto/add-produto", { comerciante });
-  }
+  };
 
-  addProduto(req: Request<NomeParams>, res: Response) {
+  addProduto = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
     if (!comerciante) return;
 
-    const data = req.body;
-
-    const ids = comerciantes.flatMap((c) => c.produtos.map((p) => p.id));
-    const biggestId = ids.length ? Math.max(...ids) : 0;
-
-    const novoProduto = {
-      ...data,
-      id: biggestId + 1,
-    };
-
-    comerciante.produtos.push(novoProduto);
+    const novoProduto = this.produtoRepository.criar({
+      ...req.body,
+      comerciante_id: comerciante.id,
+    });
 
     return res.status(201).json(novoProduto);
-  }
+  };
 
-  paginaListar(req: Request<NomeParams>, res: Response) {
+  paginaListar = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
     if (!comerciante) return;
 
@@ -85,39 +82,45 @@ export class VendedoresController {
       comerciante,
       produtos: comerciante.produtos,
     });
-  }
+  };
 
-  paginaEditarProduto(req: Request<ProdutoParams>, res: Response) {
+  paginaEditarProduto = (req: Request<ProdutoParams>, res: Response) => {
     const data = this.getProduto(req, res);
     if (!data) return;
 
     res.render("produto/editar-produto", data);
-  }
+  };
 
-  editarProduto(req: Request<ProdutoParams>, res: Response) {
+  editarProduto = (req: Request<ProdutoParams>, res: Response) => {
     const data = this.getProduto(req, res);
     if (!data) return;
 
-    Object.assign(data.produto, req.body);
-
-    res.json(data.produto);
-  }
-
-  deletarProduto(req: Request<ProdutoParams>, res: Response) {
-    const data = this.getProduto(req, res);
-    if (!data) return;
-
-    const index = data.comerciante.produtos.findIndex(
-      (p) => p.id === data.produto.id,
-    );
-
-    if (index === -1) {
-      return res.status(404).send("Produto não encontrado");
-    }
-
-    const [produto] = data.comerciante.produtos.splice(index, 1);
+    const produto = this.produtoRepository.atualizar(data.produto.id, req.body);
 
     res.json(produto);
+  };
+
+  login = (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    const comerciante = this.comercianteRepository.buscarPorEmail(email);
+
+    if (!comerciante) {
+      return res.status(404).send("Comerciante não encontrado");
+    }
+
+    res.json({
+      id: comerciante.id,
+    });
   }
+
+  deletarProduto = (req: Request<ProdutoParams>, res: Response) => {
+    const data = this.getProduto(req, res);
+    if (!data) return;
+
+    this.produtoRepository.remover(data.produto.id);
+
+    res.json(data.produto);
+  };
 }
 

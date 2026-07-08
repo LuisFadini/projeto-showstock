@@ -1,28 +1,22 @@
 import { Router } from "express";
 import { VendedoresController } from "./controller.js";
 
-const vendedoresController = new VendedoresController();
-const vendedoresRouter = Router();
+export function createVendedoresRoutes(controller: VendedoresController) {
+  const router = Router();
 
-vendedoresRouter.get("/:nome", vendedoresController.paginaVendedor);
+  router.post("/login", controller.login);
 
-vendedoresRouter.get(
-  "/:nome/produtos/novo",
-  vendedoresController.paginaAddProduto,
-);
-vendedoresRouter.post("/:nome/produtos", vendedoresController.addProduto);
+  router.get("/:vendedor_id", controller.paginaVendedor);
 
-vendedoresRouter.get(
-  "/:nome/produtos/listar",
-  vendedoresController.paginaListar,
-);
+  router.get("/:vendedor_id/produtos/novo", controller.paginaAddProduto);
+  router.post("/:vendedor_id/produtos", controller.addProduto);
 
-vendedoresRouter.get(
-  "/:nome/produtos/:id/editar",
-  vendedoresController.paginaEditarProduto,
-);
-vendedoresRouter.put("/:nome/produtos/:id", vendedoresController.editarProduto);
-vendedoresRouter.delete("/:nome/produtos/:id", vendedoresController.deletarProduto);
+  router.get("/:vendedor_id/produtos/listar", controller.paginaListar);
 
-export { vendedoresRouter };
+  router.get("/:vendedor_id/produtos/:produto_id/editar", controller.paginaEditarProduto);
+  router.put("/:vendedor_id/produtos/:produto_id", controller.editarProduto);
+  router.delete("/:vendedor_id/produtos/:produto_id", controller.deletarProduto);
+
+  return router;
+}
 

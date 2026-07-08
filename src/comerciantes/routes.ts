@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { ComerciantesController } from "./controller.js";
 
-const comerciantesController = new ComerciantesController();
-const comerciantesRouter = Router();
+export function createComerciantesRoutes(controller: ComerciantesController) {
+  const router = Router();
 
-comerciantesRouter.get("/:nome", comerciantesController.paginaComerciante)
-comerciantesRouter.get("/produto/:id", comerciantesController.paginaProduto)
-
-export { comerciantesRouter }
+  router.get("/:id", controller.paginaComerciante)
+  router.get("/produto/:id", controller.paginaProduto)
+  
+  return router
+}

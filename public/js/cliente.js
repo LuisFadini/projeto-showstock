@@ -11,7 +11,7 @@ function atualizarLojas(lojas) {
                 <div class="img-nome-loja">
                     <img src="/imagens/${loja.imagem}" alt="Loja">
                     <h2>${loja.nome}</h2>
-                    <input type="button" value="Acessar Loja" onclick="window.location.href='/comerciante/${encodeURIComponent(loja.nome)}'">
+                    <input type="button" value="Acessar Loja" onclick="window.location.href='/comerciante/${loja.id}'">
                 </div>
                 <div class="produtos-loja">
                 ${loja.produtos.map(

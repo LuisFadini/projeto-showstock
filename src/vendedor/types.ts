@@ -1,7 +1,7 @@
 export type NomeParams = {
-  nome: string;
+  vendedor_id: string;
 };
 
 export type ProdutoParams = {
-  id: string;
+  produto_id: string;
 } & NomeParams;

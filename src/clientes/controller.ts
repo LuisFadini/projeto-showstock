@@ -1,8 +1,12 @@
 import type { Request, Response } from "express";
-import { comerciantes } from "../comerciantes.js";
+import type { ComercianteRepository } from "../database/repositories/comerciante-repository.js";
 
 export class ClientesController {
-  produtos(req: Request, res: Response) {
+  constructor(private readonly comercianteRepository: ComercianteRepository) {}
+
+  produtos = (req: Request, res: Response) => {
+    const comerciantes = this.comercianteRepository.buscarTodos()
+    
     res.render("cliente", { comerciantes })
   }
 }

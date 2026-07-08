@@ -15,7 +15,7 @@ btAddProduto.addEventListener("click", async (e) => {
     return;
   }
 
-  await fetch(`/vendedor/${comerciante.nome}/produtos`, {
+  await fetch(`/vendedor/${comerciante.id}/produtos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -30,5 +30,5 @@ btAddProduto.addEventListener("click", async (e) => {
     }),
   })
 
-  window.location = `/vendedor/${comerciante.nome}`
+  window.location = `/vendedor/${comerciante.id}`
 });

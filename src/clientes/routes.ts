@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { ClientesController } from "./controller.js";
 
-const clientesController = new ClientesController();
-const clientesRouter = Router();
+export function createClientesRoutes(controller: ClientesController) {
+  const router = Router();
 
-clientesRouter.get("/", clientesController.produtos)
+  router.get("/", controller.produtos);
 
-export { clientesRouter }
+  return router;
+}

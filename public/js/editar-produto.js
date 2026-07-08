@@ -7,7 +7,7 @@ const btSalvarProduto = document.getElementById("btSalvarProduto");
 const btExcluirProduto = document.getElementById("btExcluirProduto");
 
 btSalvarProduto.addEventListener("click", async (e) => {
-  await fetch(`/vendedor/${comerciante.nome}/produtos/${produto.id}`, {
+  await fetch(`/vendedor/${comerciante.id}/produtos/${produto.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -21,15 +21,15 @@ btSalvarProduto.addEventListener("click", async (e) => {
       imagem: imgProduto.src.split("/").pop(),
     }),
   });
-  window.location = `/vendedor/${comerciante.nome}`
+  window.location = `/vendedor/${comerciante.id}`
 });
 
 btExcluirProduto.addEventListener("click", async (e) => {
-  await fetch(`/vendedor/${comerciante.nome}/produtos/${produto.id}`, {
+  await fetch(`/vendedor/${comerciante.id}/produtos/${produto.id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
   });
-  window.location = `/vendedor/${comerciante.nome}`
+  window.location = `/vendedor/${comerciante.id}`
 })
