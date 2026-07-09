@@ -1,0 +1,109 @@
+main {
+  padding: 20px;
+}
+
+/* título */
+main h1 {
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* área das lojas */
+#area-lojas {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 90%;
+}
+
+/* card da loja */
+.loja {
+  background-color: var(--branco2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 1px 1px 10px var(--cinza2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/*  cabeçalho da loja */
+.img-nome-loja {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.img-nome-loja img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.img-nome-loja h2 {
+  color: var(--verde3);
+  flex-grow: 1;
+}
+
+/* botão */
+.img-nome-loja input {
+  background-color: var(--verde2);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.img-nome-loja input:hover {
+  background-color: var(--verde3);
+}
+
+/* produtos */
+.produtos-loja {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+}
+
+/* card dos produtos */
+.produto {
+  min-width: 150px;
+  background-color: var(--cinza1);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.produto:hover {
+  transform: scale(1.05);
+}
+
+.produto img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.produto h3 {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.produto p {
+  font-size: 14px;
+  color: var(--verde3);
+}
+
+/*busca*/
+#busca {
+  width: 300px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cinza2);
+  margin: 20px auto;
+  display: block;
+}

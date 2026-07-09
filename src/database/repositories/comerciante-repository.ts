@@ -71,6 +71,29 @@ export class ComercianteRepository {
     return row ? this.mapComerciante(row) : null;
   }
 
+  buscarPorCategoria(categoria: string): Comerciante[] {
+    const comerciantes = this.db
+      .prepare(
+        `
+      SELECT *
+      FROM comerciantes
+      WHERE EXISTS (
+        SELECT 1
+        FROM json_each(comerciantes.categorias)
+        WHERE json_each.value = ?
+      )
+    `,
+      )
+      .all(categoria) as ComercianteRow[];
+
+    return comerciantes.map(this.mapComerciante).map((comerciante) => ({
+      ...comerciante,
+      produtos: comerciante.produtos.filter(
+        (produto) => produto.categoria === categoria,
+      ),
+    }));
+  }
+
   criar(comerciante: NovoComerciante): Comerciante {
     const result = this.db
       .prepare(

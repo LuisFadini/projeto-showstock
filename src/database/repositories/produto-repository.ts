@@ -8,6 +8,7 @@ export interface Produto {
   preco: number;
   quantidade: number;
   marca: string;
+  categoria: string;
   imagem: string;
 }
 
@@ -42,8 +43,8 @@ export class ProdutoRepository {
       .prepare(
         `
       INSERT INTO produtos
-      (comerciante_id, nome, descricao, preco, quantidade, marca, imagem)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      (comerciante_id, nome, descricao, preco, quantidade, marca, categoria, imagem)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `,
       )
       .run(
@@ -53,6 +54,7 @@ export class ProdutoRepository {
         produto.preco,
         produto.quantidade,
         produto.marca,
+        produto.categoria,
         produto.imagem,
       );
 

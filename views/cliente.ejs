@@ -40,7 +40,7 @@
 
           for (categoria of categorias) {
           %>
-          <div class="categoria"><span><%= categoria %></span></div>
+          <div class="categoria"><span onclick="window.location.href='/comerciante/categoria/<%= categoria %>'"><%= categoria %></span></div>
           <% } %>
         </fieldset>
       </div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title><%= categoria %></title>
+
+    <link rel="stylesheet" href="/css/global1.css">
+    <link rel="stylesheet" href="/css/global2.css">
+    <link rel="stylesheet" href="/css/categoria.css">
+</head>
+<body>
+<%- include("components/header") %>
+
+<main>
+    <section class="topo">
+        <h1><%= categoria %></h1>
+        <p>Descrição curta da categoria</p>
+    </section>
+
+    <section id="area-lojas">
+      <% comerciantes.forEach(comerciante => { %>
+        <div class="loja">
+          <div class="img-nome-loja">
+            <img src="/imagens/<%= comerciante.imagem %>">
+            <h2>
+              <%= comerciante.nome %>
+            </h2>
+            <input type="button" value="Acessar Loja" onclick="window.location.href='/comerciante/<%= comerciante.id %>'">
+          </div>
+
+          <div class="produtos-loja">
+            <% comerciante.produtos.forEach(produto => { %>
+              <div class="produto" onclick="window.location.href='/comerciante/produto/<%= produto.id %>'">
+                <img src="/imagens/<%= produto.imagem %>">
+                <h3>
+                  <%= produto.nome %>
+                </h3>
+                <p>
+                  R$ <%= produto.preco.toFixed(2) %>
+                </p>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      <% }) %>
+    </section>
+
+    <input type="button" id="btVoltar" value="Voltar" onclick="window.location.href='/cliente'">
+</main>
+
+<script src="/js/categoria.js"></script>
+
+
+</body>
+</html>

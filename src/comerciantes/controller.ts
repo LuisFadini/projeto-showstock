@@ -21,6 +21,21 @@ export class ComerciantesController {
     res.render("pagina-comerciante", { comerciante });
   };
 
+  paginaCategoria = (req: Request, res: Response) => {
+    const categoria = req.params.categoria as string;
+    const comerciantes =
+      this.comercianteRepository.buscarPorCategoria(categoria);
+
+    if (comerciantes.length === 0) {
+      return res.status(404).send("Categoria não encontrada");
+    }
+
+    res.render("categoria", {
+      categoria,
+      comerciantes,
+    });
+  };
+
   paginaProduto = (req: Request, res: Response) => {
     const produto = this.produtoRepository.buscarPorId(Number(req.params.id));
 

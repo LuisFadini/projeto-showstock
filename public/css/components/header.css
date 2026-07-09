@@ -28,6 +28,7 @@ header.nav .logo-icon {
   background-size: cover;
   width: 60px;
   height: 60px;
+  cursor: pointer;
 }
 header.nav .carrinho-icon {
   background: url(/imagens/iconprovcarrinho.png) no-repeat center;

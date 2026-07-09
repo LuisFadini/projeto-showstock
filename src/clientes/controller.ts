@@ -15,6 +15,6 @@ export class ClientesController {
   }
 
   paginaConta = (req: Request, res: Response) => {
-    res.render("cliente/carrinho")
+    res.render("cliente/conta")
   }
 }
