@@ -20,6 +20,7 @@ CREATE TABLE
     preco REAL NOT NULL CHECK (preco > 0),
     quantidade INTEGER NOT NULL CHECK (quantidade >= 0),
     marca TEXT NOT NULL,
+    categoria TEXT NOT NULL,
     imagem TEXT NOT NULL DEFAULT 'placeholder.jpg',
     FOREIGN KEY (comerciante_id) REFERENCES comerciantes (id) ON DELETE CASCADE
   );

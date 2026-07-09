@@ -6,10 +6,14 @@
 
     <link rel="stylesheet" href="/css/global2.css" />
     <link rel="stylesheet" href="/css/pagina-produto.css" />
+
+    <script>
+      const produto = <%- JSON.stringify(produto) %>;
+    </script>
   </head>
 
-  <body>
-    <header></header>
+  <body>  
+    <%- include("components/header") %>
 
     <main>
       <section>
@@ -27,7 +31,7 @@
           <p>Marca:</p>
           <p id="marcaProduto"><%= produto.marca %></p>
           <span>
-            <p>Quantidade: <input type="number" min="0" max="100" id="" /></p>
+            <p>Quantidade: <input type="number" min="0" max="100" id="inQuantidade" /></p>
           </span>
           <p id="precoProduto">R$<%= produto.preco.toFixed(2) %></p>
           <div>
@@ -36,10 +40,13 @@
               id="btAdicionarCarrinho"
               value="Adicionar ao carrinho"
             />
-            <input type="button" id="btComprar" value="Comprar" />
+            <input type="button" id="btComprar" value="Comprar"/>
           </div>
         </div>
       </section>
     </main>
+
+    <script src="/js/mensagem_alerta.js"></script>
+    <script src="/js/cliente/carrinho.js"></script>
   </body>
 </html>

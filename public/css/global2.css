@@ -20,7 +20,7 @@
 }
 
 /* ESTRUTURA */
-header {
+header:not(.nav) {
     background-color: var(--verde3);
     height: 80px;
     text-align: center;
@@ -170,42 +170,11 @@ input[type="button"]:hover {
     cursor: pointer;
 }
 
-header ul {
-    list-style: none;
-    height: 100%;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    text-decoration: none;
-}
-
 .produto:hover {
     transform: scale(1.02);
     transition: 0.2s;
     cursor: pointer;
 
-}
-
-header ul input {
-    height: 15px;
-    width: 400px;
-    color: grey;
-}
-
-.logo {
-    background: url(/imagens/VISU.png) no-repeat center;
-    background-size: cover;
-    width: 60px;
-    height: 60px;
-}
-
-.carrinho {
-    background: url(/imagens/iconprovcarrinho.png) no-repeat center;
-    background-size: cover;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
 }
 
 .produto p {
@@ -235,11 +204,4 @@ header ul input {
     transition: 0.2s;
     cursor: pointer;
 
-}
-
-@media(max-width: 540px) {
-    header input {
-        height: 13px !important;
-        width: 150px !important;
-    }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Carrinho</title>
+
+    <link rel="stylesheet" href="/css/cliente/carrinho.css" />
+    <link rel="stylesheet" href="/css/global2.css" />
+  </head>
+
+  <body>
+    <%- include("../components/header") %>
+    <main class="carrinho">
+      <section class="produtos">
+        <h1>Meu Carrinho</h1>
+
+        <div id="listaCarrinho">
+        </div>
+      </section>
+
+      <aside class="resumo">
+        <h2>Resumo do Pedido</h2>
+
+        <div class="linha">
+          <span>Subtotal</span>
+          <span id="linha-subtotal"></span>
+        </div>
+
+        <div class="linha">
+          <span>Frete</span>
+          <span id="linha-frete">R$ 0.00</span>
+        </div>
+
+        <div class="linha total">
+          <span>Total</span>
+          <span id="linha-total"></span>
+        </div>
+
+        <button class="finalizar">Finalizar Compra</button>
+      </aside>
+    </main>
+    
+    <script src="/js/mensagem_alerta.js"></script>
+    <script src="/js/cliente/carrinho.js"></script>
+  </body>
+</html>

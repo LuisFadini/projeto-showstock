@@ -18,7 +18,10 @@ const comercianteRepository = new ComercianteRepository(db, produtoRepository);
 
 // Adiciona os valores iniciais no banco de dados
 for (const comerciante of comerciantes) {
-  comercianteRepository.criar(comerciante);
+  comercianteRepository.criar({
+    ...comerciante,
+    categorias: comerciante.produtos.flatMap((p) => p.categoria),
+  });
 }
 
 const app = express();
@@ -29,7 +32,6 @@ app.use(express.json());
 
 app.use(express.static(path.join(process.cwd(), "public")));
 
-
 app.get("/", (_, res) => {
   res.render("identificacao");
 });
@@ -38,16 +40,19 @@ app.get("/cadastro", (_, res) => {
   res.render("cadastro");
 });
 
-
-const comerciantesController = new ComerciantesController(comercianteRepository, produtoRepository);
+const comerciantesController = new ComerciantesController(
+  comercianteRepository,
+  produtoRepository,
+);
 app.use("/comerciante", createComerciantesRoutes(comerciantesController));
-
 
 const clientesController = new ClientesController(comercianteRepository);
 app.use("/cliente", createClientesRoutes(clientesController));
 
-
-const vendedoresController = new VendedoresController(comercianteRepository, produtoRepository);
+const vendedoresController = new VendedoresController(
+  comercianteRepository,
+  produtoRepository,
+);
 app.use("/vendedor", createVendedoresRoutes(vendedoresController));
 
 app.listen("3000", () => {

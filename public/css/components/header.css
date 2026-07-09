@@ -1,0 +1,73 @@
+
+
+header.nav {
+  background-color: var(--verde3);
+  height: 80px;
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+
+header.nav ul {
+  list-style: none;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-decoration: none;
+}
+
+header.nav ul input {
+  height: 15px;
+  width: 400px;
+  color: grey;
+}
+
+header.nav .logo-icon {
+  background: url(/imagens/VISU.png) no-repeat center;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+}
+header.nav .carrinho-icon {
+  background: url(/imagens/iconprovcarrinho.png) no-repeat center;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+header.nav .perfil-icon {
+  background: url(/imagens/perfil.png) no-repeat center;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+header.nav label {
+  font-size: var(--tam-texto-pequeno);
+  color: var(--verde3);
+}
+
+header.nav input::placeholder {
+  color: var(--verde1);
+}
+
+header.nav input[type="text"],
+header.nav input[type="password"] {
+  padding: 1.2rem;
+  border: 1px solid var(--verde3);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: var(--verde3);
+}
+
+@media (max-width: 540px) {
+  header.nav input {
+    height: 13px !important;
+    width: 150px !important;
+  }
+}
+
