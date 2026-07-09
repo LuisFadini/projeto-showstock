@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="/css/cliente/conta.css" />
+    <link rel="stylesheet" href="/css/global2.css" />
+  </head>
+  <body>
+    <%- include("../components/header") %>
+    <div class="background">
+
+      <div class="perfil">
+        <div class="topo">
+          <div class="foto">
+            <img id="fotoPerfil" src="/imagens/perfil.png" />
+            
+            <input type="file" id="inputFoto" accept="image/*" hidden />
+            
+            <button id="trocarFoto">Alterar Foto</button>
+          </div>
+          
+          <div class="dados">
+            <label>Nome</label>
+            <input id="nome" disabled />
+            
+            <label>E-mail</label>
+            <input id="email" disabled />
+            
+            <label>Telefone</label>
+            <input id="telefone" disabled />
+            
+            <label>Endereço</label>
+            <input id="endereco" disabled />
+          </div>
+        </div>
+        
+        <div class="sobre">
+          <label>Sobre Mim</label>
+          
+          <textarea id="sobre" disabled></textarea>
+        </div>
+        
+        <div class="botoes">
+          <button id="editar">Editar Perfil</button>
+          
+          <button id="salvar" style="display: none">Salvar</button>
+          
+          <button id="cancelar" style="display: none">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/conta.js"></script>
+  </body>
+</html>
