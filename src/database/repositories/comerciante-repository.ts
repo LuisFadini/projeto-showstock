@@ -23,9 +23,7 @@ export type NovoComerciante = Omit<Omit<Comerciante, "id">, "produtos"> & {
 };
 export type AtualizarComerciante = Partial<Omit<NovoComerciante, "produtos">>;
 
-type ComercianteRow = Omit<Comerciante, "categorias" | "produtos"> & {
-  categorias: string;
-};
+type ComercianteRow = Omit<Comerciante, "categorias" | "produtos">;
 
 export class ComercianteRepository {
   constructor(
@@ -33,19 +31,14 @@ export class ComercianteRepository {
     private readonly produtoRepository: ProdutoRepository,
   ) {}
 
-  private readonly mapComerciante = (row: ComercianteRow): Comerciante => ({
-    ...row,
-    categorias: this.deserializeCategorias(row.categorias),
-    produtos: this.produtoRepository.buscarPorComerciante(row.id),
-  });
-
-  private serializeCategorias(categorias: string[]): string {
-    return JSON.stringify(categorias);
-  }
-
-  private deserializeCategorias(json: string): string[] {
-    return JSON.parse(json) as string[];
-  }
+  private readonly mapComerciante = (row: ComercianteRow): Comerciante => {
+    const produtos = this.produtoRepository.buscarPorComerciante(row.id);
+    return {
+      ...row,
+      categorias: [...new Set(produtos.map((p) => p.categoria))],
+      produtos,
+    };
+  };
 
   buscarTodos(): Comerciante[] {
     const comerciantes = this.db
@@ -72,21 +65,11 @@ export class ComercianteRepository {
   }
 
   buscarPorCategoria(categoria: string): Comerciante[] {
-    const comerciantes = this.db
-      .prepare(
-        `
-      SELECT *
-      FROM comerciantes
-      WHERE EXISTS (
-        SELECT 1
-        FROM json_each(comerciantes.categorias)
-        WHERE json_each.value = ?
-      )
-    `,
-      )
-      .all(categoria) as ComercianteRow[];
+    const comerciantes = this.buscarTodos().filter((c) =>
+      c.categorias.includes(categoria),
+    );
 
-    return comerciantes.map(this.mapComerciante).map((comerciante) => ({
+    return comerciantes.map((comerciante) => ({
       ...comerciante,
       produtos: comerciante.produtos.filter(
         (produto) => produto.categoria === categoria,
@@ -105,10 +88,9 @@ export class ComercianteRepository {
           senha,
           imagem,
           relevancia,
-          data,
-          categorias
+          data
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         `,
       )
       .run(
@@ -119,7 +101,6 @@ export class ComercianteRepository {
         comerciante.imagem,
         comerciante.relevancia,
         comerciante.data,
-        this.serializeCategorias(comerciante.categorias),
       );
 
     const comercianteId = Number(result.lastInsertRowid);
@@ -142,11 +123,7 @@ export class ComercianteRepository {
     const data: Record<string, SQLInputValue> = {};
 
     for (const [campo, valor] of Object.entries(comerciante)) {
-      if (campo === "categorias") {
-        data[campo] = JSON.stringify(valor);
-      } else {
-        data[campo] = valor as SQLInputValue;
-      }
+      data[campo] = valor as SQLInputValue;
     }
     const campos = Object.keys(data);
 

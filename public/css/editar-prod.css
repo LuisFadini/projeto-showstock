@@ -23,7 +23,8 @@
 }
 
 #form-produto input,
-#form-produto textarea {
+#form-produto textarea, 
+#form-produto select {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -33,13 +34,15 @@
 }
 
 #form-produto input:focus,
-#form-produto textarea:focus {
+#form-produto textarea:focus, 
+#form-produto select:focus {
     border-color: #66afe9;
     outline: none;
 }
 
 #form-produto textarea::placeholder,
-#form-produto input::placeholder {
+#form-produto input::placeholder, 
+#form-produto select::placeholder {
     color: #999;
 }
 

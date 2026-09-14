@@ -15,9 +15,7 @@
         <div id="logovisu"></div>
       </div>
       <section class="campos-inputs">
-        <h1 id="txtCadastro">Cadastro</h1>
-        <label for="inNome"></label>
-        <input type="text" id="inNome" name="nome" placeholder="Nome" />
+        <h1 id="txtCadastro">Login</h1>
 
         <label for="inEmail"></label>
         <input type="text" id="inEmail" name="email" placeholder="Email" />
@@ -25,11 +23,17 @@
         <label for="inSenha"></label>
         <input type="password" id="inSenha" name="senha" placeholder="Senha" />
 
-        <input type="button" id="btCadastrar" value="Cadastrar" />
-        <p id="rodape">Já tem VISU? <a id="btMudar" href="/login">Faça login!</a></p>
+        <input type="button" id="btCadastrar" value="Login" />
+        <input
+          type="button"
+          value="Entrar sem login"
+          id="btEntrar"
+          class="btn-verde"
+        />
+        <p id="rodape">Não tem VISU? <a id="btMudar" href="/cadastro">Faça o cadastro!</a></p>
       </section>
     </main>
     <script src="/js/mensagem_alerta.js"></script>
-    <script src="/js/cadastro.js"></script>
+    <script src="/js/login.js"></script>
   </body>
 </html>

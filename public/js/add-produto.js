@@ -2,6 +2,7 @@ const inNome = document.getElementById("inNome");
 const inDescricao = document.getElementById("inDescricao");
 const inQuantidade = document.getElementById("inQuantidade");
 const inPreco = document.getElementById("inPreco");
+const inCategoria = document.getElementById("inCategoria");
 const btAddProduto = document.getElementById("btAddProduto");
 
 btAddProduto.addEventListener("click", async (e) => {
@@ -9,13 +10,14 @@ btAddProduto.addEventListener("click", async (e) => {
     !inNome.value ||
     !inDescricao.value ||
     !inQuantidade.value ||
-    !inPreco.value
+    !inPreco.value ||
+    !inCategoria.value
   ) {
     mostrarErro("Por favor, preencha todos os campos antes de continuar.");
     return;
   }
 
-  await fetch(`/vendedor/${comerciante.id}/produtos`, {
+  await fetch(`/vendedor/produtos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,8 +29,9 @@ btAddProduto.addEventListener("click", async (e) => {
       preco: Number(inPreco.value),
       marca: comerciante.nome,
       imagem: "placeholder.jpg",
+      categoria: inCategoria.value
     }),
   })
 
-  window.location = `/vendedor/${comerciante.id}`
+  window.location = `/vendedor`
 });

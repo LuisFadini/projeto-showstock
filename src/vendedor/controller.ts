@@ -3,24 +3,54 @@ import type { NomeParams, ProdutoParams } from "./types.js";
 import type { ComercianteRepository } from "../database/repositories/comerciante-repository.js";
 import type { ProdutoRepository } from "../database/repositories/produto-repository.js";
 
+interface AuthCookie {
+  id: number;
+  tipo: "cliente" | "comerciante";
+}
+
 export class VendedoresController {
   constructor(
     private readonly comercianteRepository: ComercianteRepository,
     private readonly produtoRepository: ProdutoRepository,
   ) {}
 
-  private getComerciante(req: Request<NomeParams>, res: Response) {
-    const vendedorId = Number(req.params.vendedor_id);
+  private getAuth(req: Request, res: Response): AuthCookie | null {
+    const cookie = req.cookies?.auth;
 
-    if (Number.isNaN(vendedorId)) {
-      res.status(400).send("ID do vendedor inválido");
+    if (!cookie) {
+      res.redirect("/");
       return null;
     }
 
-    const comerciante = this.comercianteRepository.buscarPorId(vendedorId);
+    try {
+      const auth = JSON.parse(cookie) as AuthCookie;
+
+      if (
+        auth.tipo !== "comerciante" ||
+        typeof auth.id !== "number" ||
+        !Number.isInteger(auth.id) ||
+        auth.id <= 0
+      ) {
+        res.redirect("/");
+        return null;
+      }
+
+      return auth;
+    } catch {
+      res.redirect("/");
+      return null;
+    }
+  }
+
+  private getComerciante(req: Request, res: Response) {
+    const auth = this.getAuth(req, res);
+
+    if (!auth) return null;
+
+    const comerciante = this.comercianteRepository.buscarPorId(auth.id);
 
     if (!comerciante) {
-      res.status(404).send("Comerciante não encontrado");
+      res.redirect("/");
       return null;
     }
 
@@ -29,41 +59,69 @@ export class VendedoresController {
 
   private getProduto(req: Request<ProdutoParams>, res: Response) {
     const comerciante = this.getComerciante(req, res);
+
     if (!comerciante) return null;
 
     const produtoId = Number(req.params.produto_id);
 
-    if (Number.isNaN(produtoId)) {
-      res.status(400).send("ID do produto inválido");
+    if (!Number.isInteger(produtoId) || produtoId <= 0) {
+      res.redirect("/");
       return null;
     }
 
     const produto = this.produtoRepository.buscarPorId(produtoId);
 
     if (!produto) {
-      res.status(404).send("Produto não encontrado");
+      res.redirect("/");
       return null;
     }
 
-    return { comerciante, produto };
+    if (produto.comerciante_id !== comerciante.id) {
+      res.redirect("/");
+      return null;
+    }
+
+    return {
+      comerciante,
+      produto,
+    };
   }
+
+  getCategorias = () => {
+    return [
+      ...new Set(
+        this.comercianteRepository
+          .buscarTodos()
+          .flatMap((c) => c.produtos.flatMap((p) => p.categoria)),
+      ),
+    ];
+  };
 
   paginaVendedor = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
+
     if (!comerciante) return;
 
-    res.render("vendedor", { comerciante, produtos: comerciante.produtos });
+    res.render("vendedor", {
+      comerciante,
+      produtos: comerciante.produtos,
+    });
   };
 
   paginaAddProduto = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
+
     if (!comerciante) return;
 
-    res.render("produto/add-produto", { comerciante });
+    res.render("produto/add-produto", {
+      comerciante,
+      categorias: this.getCategorias(),
+    });
   };
 
   addProduto = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
+
     if (!comerciante) return;
 
     const novoProduto = this.produtoRepository.criar({
@@ -71,11 +129,12 @@ export class VendedoresController {
       comerciante_id: comerciante.id,
     });
 
-    return res.status(201).json(novoProduto);
+    res.status(201).json(novoProduto);
   };
 
   paginaListar = (req: Request<NomeParams>, res: Response) => {
     const comerciante = this.getComerciante(req, res);
+
     if (!comerciante) return;
 
     res.render("produto/listar", {
@@ -86,13 +145,18 @@ export class VendedoresController {
 
   paginaEditarProduto = (req: Request<ProdutoParams>, res: Response) => {
     const data = this.getProduto(req, res);
+
     if (!data) return;
 
-    res.render("produto/editar-produto", data);
+    res.render("produto/editar-produto", {
+      ...data,
+      categorias: this.getCategorias(),
+    });
   };
 
   editarProduto = (req: Request<ProdutoParams>, res: Response) => {
     const data = this.getProduto(req, res);
+
     if (!data) return;
 
     const produto = this.produtoRepository.atualizar(data.produto.id, req.body);
@@ -100,22 +164,9 @@ export class VendedoresController {
     res.json(produto);
   };
 
-  login = (req: Request, res: Response) => {
-    const { email } = req.body;
-
-    const comerciante = this.comercianteRepository.buscarPorEmail(email);
-
-    if (!comerciante) {
-      return res.status(404).send("Comerciante não encontrado");
-    }
-
-    res.json({
-      id: comerciante.id,
-    });
-  }
-
   deletarProduto = (req: Request<ProdutoParams>, res: Response) => {
     const data = this.getProduto(req, res);
+
     if (!data) return;
 
     this.produtoRepository.remover(data.produto.id);

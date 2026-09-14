@@ -2,83 +2,80 @@ const inNome = document.getElementById("inNome");
 const inEmail = document.getElementById("inEmail");
 const inSenha = document.getElementById("inSenha");
 const btCadastrar = document.getElementById("btCadastrar");
-const txtCadastro = document.getElementById("txtCadastro");
-
-let mudar = document.getElementById("btMudar");
-const rodape = document.getElementById("rodape");
-let trocar = true;
-
-mudar.addEventListener("click", () => {
-  mudar.remove();
-  troca();
-});
-
-function troca() {
-  const span = document.createElement("span");
-  span.addEventListener("click", troca);
-  span.id = "btMudar";
-
-  if (trocar) {
-    rodape.innerHTML = "Não tem VISU? ";
-    span.appendChild(document.createTextNode("Faça o cadastro!"));
-    btCadastrar.value = "Entrar";
-    txtCadastro.textContent = "Login";
-  } else if (!trocar) {
-    rodape.innerHTML = "Já tem VISU? ";
-    span.appendChild(document.createTextNode("Faça login!"));
-    btCadastrar.value = "Cadastrar";
-    txtCadastro.textContent = "Cadastro";
-  }
-
-  rodape.appendChild(span);
-  trocar = !trocar;
-}
-
-const btEntrar = document.getElementById("btEntrar");
 
 btCadastrar.addEventListener("click", async () => {
-  const user = localStorage.getItem("tipoUsuario");
-  if (user === "comerciante") {
-    if (!inNome.value || !inEmail.value || !inSenha.value) {
-      mostrarErro("Por favor, preencha todos os campos antes de continuar.");
-      return;
-    }
+  const nome = inNome.value.trim();
+  const email = inEmail.value.trim();
+  const senha = inSenha.value;
+  
+  const tipoUsuario = localStorage.getItem("tipoUsuario") ?? "cliente";
 
-    const response = await fetch("/vendedor/login", {
+  if (!nome || !email || !senha) {
+    mostrarErro("Preencha todos os campos.");
+    return;
+  }
+
+  if (senha.length < 6) {
+    mostrarErro("A senha deve ter pelo menos 6 caracteres.");
+    return;
+  }
+
+  const tipo = tipoUsuario === "comerciante" ? "comerciante" : "cliente";
+
+  try {
+    const endpoint =
+      tipo === "comerciante"
+        ? "/auth/vendedor/cadastro"
+        : "/auth/cliente/cadastro";
+
+    const body =
+      tipo === "comerciante"
+        ? {
+            nome,
+            email,
+            senha,
+            sobre: null,
+            imagem: "perfil.png",
+            relevancia: 0,
+            data: new Date().toISOString(),
+            categorias: [],
+            produtos: [],
+          }
+        : {
+            nome,
+            email,
+            senha,
+            telefone: null,
+            endereco: null,
+            sobre: null,
+            foto: "perfil.png",
+          };
+
+    const response = await fetch(endpoint, {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: inEmail.value,
-      }),
+
+      body: JSON.stringify(body),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      mostrarErro("Email não encontrado.");
+      mostrarErro(data.mensagem ?? "Não foi possível realizar o cadastro.");
+
       return;
     }
 
-    const { id } = await response.json();
+    alert("Cadastro realizado com sucesso!");
 
-    window.location = `vendedor/${id}`;
-  } else {
-    if (!inNome.value || !inEmail.value || !inSenha.value) {
-      mostrarErro("Por favor, preencha todos os campos antes de continuar.");
-      return;
-    }
-    window.location = "cliente";
+    window.location.href = "/login";
+  } catch (error) {
+    console.error(error);
+
+    mostrarErro("Não foi possível conectar ao servidor.");
   }
 });
-
-btEntrar.addEventListener("click", () => {
-  window.location = "cliente";
-});
-
-window.onload = () => {
-  const tipoUsuario = localStorage.getItem("tipoUsuario");
-  if (tipoUsuario === "comerciante") {
-    btEntrar.style.display = "none";
-  }
-};
 

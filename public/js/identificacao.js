@@ -1,6 +1,6 @@
 const divCliente = document.getElementById('cliente');
 const divComerciante = document.getElementById('comerciante');
-const CAMINHO_LOGIN = 'cadastro';
+const CAMINHO_LOGIN = 'login';
 
 function salvarERedirecionar(tipo) {
     localStorage.setItem('tipoUsuario', tipo);

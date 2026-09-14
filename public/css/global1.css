@@ -96,6 +96,12 @@ li a {
     cursor: pointer;
 }
 
+.campos-inputs a {
+    font-size: inherit;
+    color: blue;
+    cursor: pointer;
+}
+
 label {
     font-size: var(--tam-texto-pequeno);
     color: var(--verde3);

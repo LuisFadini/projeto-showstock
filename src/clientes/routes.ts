@@ -7,6 +7,7 @@ export function createClientesRoutes(controller: ClientesController) {
   router.get("/", controller.paginaProdutos);
   router.get("/carrinho", controller.paginaCarrinho);
   router.get("/conta", controller.paginaConta);
+  router.put("/conta", controller.atualizarConta);
 
   return router;
 }

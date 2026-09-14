@@ -23,23 +23,26 @@
           
           <div class="dados">
             <label>Nome</label>
-            <input id="nome" disabled />
+            <input id="nome" value="<%= usuario.nome %>" />
             
             <label>E-mail</label>
-            <input id="email" disabled />
+            <input id="email" disabled value="<%= usuario.email %>" />
             
+            <label>Senha</label>
+            <input id="senha" type="password" placeholder="<%= '*'.repeat(usuario.senha.length) %>" />
+
             <label>Telefone</label>
-            <input id="telefone" disabled />
+            <input id="telefone" value="<%= usuario.telefone %>" />
             
             <label>Endereço</label>
-            <input id="endereco" disabled />
+            <input id="endereco" value="<%= usuario.endereco %>" />
           </div>
         </div>
         
         <div class="sobre">
           <label>Sobre Mim</label>
           
-          <textarea id="sobre" disabled></textarea>
+          <textarea id="sobre"><%= usuario.sobre %></textarea>
         </div>
         
         <div class="botoes">
@@ -52,6 +55,6 @@
       </div>
     </div>
 
-    <script src="/js/conta.js"></script>
+    <script src="/js/cliente/conta.js"></script>
   </body>
 </html>

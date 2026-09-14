@@ -18,7 +18,7 @@
         <h1>Editar Produtos</h1>
         <div id="menu-central">
             <% produtos.forEach((produto) => { %>
-            <div class="produto-item" id="<%= produto.id %>" data-id="<%= produto.id %>" onclick="window.location = '/vendedor/<%= comerciante.id %>/produtos/<%= produto.id %>/editar'">
+            <div class="produto-item" id="<%= produto.id %>" data-id="<%= produto.id %>" onclick="window.location = '/vendedor/produtos/<%= produto.id %>/editar'">
                 <h3><%= produto.nome %></h3>
                 <img src="/imagens/<%= produto.imagem %>" alt="<%= produto.nome %>" width="100"/>
                 <p>Preço: R$<%= produto.preco.toFixed(2) %></p>

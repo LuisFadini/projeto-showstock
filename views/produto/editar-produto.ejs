@@ -54,6 +54,16 @@
             placeholder="R$ 0,00"
             value="<%= produto.preco %>"
           />
+          <select name="categorias" id="inCategoria">
+            <% categorias.forEach(categoria => { %>
+              <option
+                value="<%= categoria %>"     
+                 <%= categoria === produto.categoria ? 'selected' : '' %>
+              >
+                <%= categoria %>
+              </option>
+            <% }) %>
+          </select>
           <input type="button" value="Salvar" id="btSalvarProduto" />
           <input type="button" value="Excluir" id="btExcluirProduto" />
         </div>
@@ -62,14 +72,9 @@
         type="button"
         value="Voltar"
         id="btVoltar"
-        onclick="window.location = '/vendedor/<%= comerciante.id %>'"
+        onclick="window.location = '/vendedor'"
       />
     </main>
-    <!-- 
-    <script src="../../comerciantes.js"></script>
-    <script src="../elementos.js"></script>
-    -->
-
     <script src="/js/mensagem_alerta.js"></script>
     <script src="/js/editar-produto.js"></script>
   </body>
